@@ -9,25 +9,25 @@ class RestClientDio with RestClient, RestClientHelper {
   RestClientDio(this.dio);
 
   @override
-  CancelableOperation<T> post<T>([dynamic data]) {
+  CancelableOperation<T> doPost<T>([dynamic data]) {
     final token = CancelToken();
     return _wrap(() => _request("POST", token: token, data: data), cancelToken: token);
   }
 
   @override
-  CancelableOperation<T> delete<T>([data]) {
+  CancelableOperation<T> doDelete<T>([data]) {
     final token = CancelToken();
     return _wrap(() => _request("DELETE", token: token, data: data), cancelToken: token);
   }
 
   @override
-  CancelableOperation<T> get<T>() {
+  CancelableOperation<T> doGet<T>() {
     final token = CancelToken();
     return _wrap(() => _request("GET", token: token), cancelToken: token);
   }
 
   @override
-  CancelableOperation<T> patch<T>([data]) {
+  CancelableOperation<T> doPatch<T>([data]) {
     final token = CancelToken();
     return _wrap(() => _request("PATCH", token: token, data: data), cancelToken: token);
   }
