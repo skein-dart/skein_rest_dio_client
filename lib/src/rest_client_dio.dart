@@ -1,8 +1,10 @@
 import 'package:async/async.dart';
 import 'package:dio/dio.dart';
+import 'package:logging/logging.dart';
 import 'package:skein_rest_client/skein_rest_client.dart';
 
 class RestClientDio with RestClient, RestClientHelper {
+  static late final _log = Logger("rest_client_dio");
 
   final Dio dio;
 
@@ -41,6 +43,7 @@ extension on RestClientDio {
   }
 
   Future<T> _request<T>(String method, {CancelToken? token, data}) async {
+    RestClientDio._log.info("$name ${method.toUpperCase()} ${uri.toString()} ${data != null ? "-> $data" : ""}");
 
     final options = Options(
       method: method,
@@ -55,7 +58,14 @@ extension on RestClientDio {
       options: options,
     );
 
-    return decodeIfNeeded(response.data);
+    RestClientDio._log.info("$name ${method.toUpperCase()} ${uri.toString()} ${response.data != null ? "<- ${response.data}" : ""}");
+
+    try {
+      return decodeIfNeeded(response.data);
+    } catch (error) {
+      RestClientDio._log.severe("decode failed", error.toString());
+      rethrow;
+    }
   }
 
 }
