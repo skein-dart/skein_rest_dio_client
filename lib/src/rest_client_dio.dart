@@ -52,11 +52,18 @@ extension on RestClientDio {
 
     final encodedData = await encodeIfNeeded(data);
 
-    final response = await dio.request(uri.toString(),
-      data: encodedData,
-      cancelToken: token,
-      options: options,
-    );
+    late final Response response;
+
+    try {
+      response = await dio.request(uri.toString(),
+        data: encodedData,
+        cancelToken: token,
+        options: options,
+      );
+    } on DioError catch (error) {
+      RestClientDio._log.severe("$name ${method.toUpperCase()} ${uri.toString()} <- ${error.message}");
+      rethrow;
+    }
 
     RestClientDio._log.info("$name ${method.toUpperCase()} ${uri.toString()} ${response.data != null ? "<- ${response.data}" : ""}");
 

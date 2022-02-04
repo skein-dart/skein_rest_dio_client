@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   skein_rest_client:
+#    path: ../skein_rest_client
     git: https://github.com/skein-dart/skein_rest_client.git
   dio: ^4.0.4
   async: ^2.8.2
