@@ -60,9 +60,9 @@ extension on RestClientDio {
         cancelToken: token,
         options: options,
       );
-    } on DioError catch (error) {
+    } on DioError catch (error, stackTrace) {
       RestClientDio._log.severe("$name ${method.toUpperCase()} ${uri.toString()} <- ${error.message}");
-      rethrow;
+      return handleException(error, stackTrace);
     }
 
     RestClientDio._log.info("$name ${method.toUpperCase()} ${uri.toString()} ${response.data != null ? "<- ${response.data}" : ""}");
