@@ -1,15 +1,17 @@
 name: skein_rest_dio_client
 description: An implementation of the skein_rest_client based on the dio package.
-version: 0.0.4
+version: 0.0.7
 homepage: https://github.com/skein-dart/skein_rest_dio_client
 
 environment:
-  sdk: ">=2.15.1 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   skein_rest_client:
 #    path: ../skein_rest_client
-    git: https://github.com/skein-dart/skein_rest_client.git
+    git:
+      url: https://github.com/skein-dart/skein_rest_client.git
+      ref: 0.0.7
   dio: ^4.0.4
   async: ^2.8.2
   logging: ^1.0.2
